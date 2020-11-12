@@ -1,0 +1,98 @@
+﻿@model ACME.Models.Product
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body style="background-color:bisque;">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @using (Html.BeginForm("Edit", "Product", FormMethod.Post,
+                             new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ProductID)
+        <table style="width:650px">
+            <tr>
+                <td style="width:350px">
+                    Product ID:
+                    <input type="text" name="ProductID" value="@Model.ProductID" readonly />
+                    <br />
+                    Name: <br />
+                    @Html.TextBoxFor(m => m.Name, new { maxlength = "20", style = "width:160px;" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    <br />
+                    CategoryID: <br />
+                    @Html.DropDownListFor(m => m.CategoryID, new SelectListItem[]{
+                     new SelectListItem() {Text = "Costumes", Value="costumes"},
+                     new SelectListItem() {Text = "Masks", Value="masks"},
+                     new SelectListItem() {Text = "Special Effects", Value="fx"},
+                     new SelectListItem() {Text = "Props", Value="props"}})
+                    <br />
+                    <input type="text" name="ImageFile" value="@Model.ImageFile" readonly />
+                    <input type="file" name="uploadfile" /> 
+                    <br />
+                    Unit Price: <br />
+                    @Html.TextBoxFor(m => m.UnitPrice, new { maxlength = "6", style = "width:160px;" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+                    <br />
+                    On Hand: <br />
+                    @Html.TextBoxFor(m => m.OnHand, new { maxlength = "6", style = "width:160px;" })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.OnHand, "", new { @class = "text-danger" })
+                    <br />
+
+                </td>
+                <td style="width:300px">
+                    <img src="~/Content/Images/Products/@Model.ImageFile"
+                         style="width:250px; height:300px;" />
+
+                </td>
+            </tr>
+        </table>
+
+        @: Short Description<br />
+        @Html.TextAreaFor(m => m.ShortDescription, new
+        {
+            @cols = 80,
+            @rows = 2,
+            style = "max-width:600px;width:600px;"
+        })
+        <br />
+        @Html.ValidationMessageFor(m => m.ShortDescription)
+
+        @: Long Description<br />
+        @Html.TextAreaFor(m => m.LongDescription, new
+       {
+           @cols = 80,
+           @rows = 4,
+           style = "max-width:600px;width:600px;"
+       })
+        <br />
+        @Html.ValidationMessageFor(m => m.LongDescription)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    }
+</body>
+</html>

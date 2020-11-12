@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ACME.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+    int intcnt = 0;
+}
+
+
+<table style="width: 630px">
+    <caption><h2 style="text-transform: uppercase;" >@ViewBag.Categoryid</h2></caption>
+    @foreach(var item in Model)
+    {
+        if(intcnt % 3 == 0)
+        {
+            @:<tr>
+        }
+        <td>
+            <a href="~/shopping/order/@item.ProductID">@item.Name</a>
+            <br />
+            <img src="~/Content/Images/Products/@item.ImageFile"
+                 style="width:170px; height:200px;" />
+            <br />&nbsp;
+        </td>
+        if(intcnt % 3 == 2 || intcnt == Model.Count() - 1)
+        {
+            @:</tr>
+        }
+        intcnt = intcnt + 1;
+    }@*foreach loop*@
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageFile)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="~/shopping/order/@item.ProductID">@item.Name</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageFile)
+                <br/>
+                <img src="~/Content/Images/Products/@item.ImageFile"
+                     style="width:170px; height:200px;" />
+            </td>
+        </tr>
+    }
+</table>*@
